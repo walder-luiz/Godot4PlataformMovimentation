@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0r7y38ey7u0b"]
+
+[ext_resource type="Texture2D" uid="uid://dv3xvojhkru00" path="res://icon.svg" id="1_3nt7v"]
+[ext_resource type="Script" path="res://Scripts/Character/character_body_2d.gd" id="1_gwih2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2c4sa"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b0kv1"]
+size = Vector2(3, 20)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_gwih2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_3nt7v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2c4sa")
+
+[node name="RightWallJump" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWallJump"]
+position = Vector2(32.5, 0)
+shape = SubResource("RectangleShape2D_b0kv1")
+
+[node name="LeftWallJump" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWallJump"]
+position = Vector2(-32.5, 0)
+shape = SubResource("RectangleShape2D_b0kv1")
+
+[connection signal="body_entered" from="RightWallJump" to="." method="_on_right_wall_jump_body_entered"]
+[connection signal="body_exited" from="RightWallJump" to="." method="_on_right_wall_jump_body_exited"]
+[connection signal="body_entered" from="LeftWallJump" to="." method="_on_left_wall_jump_body_entered"]
+[connection signal="body_exited" from="LeftWallJump" to="." method="_on_left_wall_jump_body_exited"]
